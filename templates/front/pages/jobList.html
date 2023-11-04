@@ -1,0 +1,86 @@
+{% extends 'front/base.html' %}
+{% load static %}
+{% block meta %}
+<title>{{webSettingsUniversal.title}} - {{webSettingsUniversal.slogan}}</title>
+<meta name="description" content="{{webSettingsUniversal.metaDescription}}">
+<meta name="keywords" content="{{webSettingsUniversal.metaKeyword}}">
+<meta name="author" content="Hardkode Technologies">
+<meta property="og:locale" content="en_US"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="{{webSettingsUniversal.title}} - {{webSettingsUniversal.slogan}}"/>
+<meta property="og:url" content="{{request.scheme}}://{{request.get_host}}{{request.get_full_path}}"/>
+<meta property="og:site_name" content="{{webSettingsUniversal.title}}"/>
+{% endblock %}
+{% block content %}
+<section class="wrapper">
+    <div class="container pt-10 pt-lg-12 pt-xl-12 pt-xxl-10 pb-lg-10 pb-xl-10 pb-xxl-0">
+        <div class="row gx-md-8 gx-xl-12 gy-10 align-items-center text-center text-lg-start">
+            <div class="col-lg-6" data-cues="slideInDown" data-group="page-title" data-delay="900" data-disabled="true">
+                <h1 class="display-1 mb-4 me-xl-5 mt-lg-n10" data-cue="slideInDown" data-group="page-title"
+                    data-delay="900" data-show="true"
+                    style="animation-name: slideInDown; animation-duration: 700ms; animation-timing-function: ease; animation-delay: 900ms; animation-direction: normal; animation-fill-mode: both;">
+                    Find your dream jobs with <br class="d-none d-md-block d-lg-none"><span class="text-primary">Our AI Job Finder</span>
+                </h1>
+                <p class="lead fs-24 lh-sm mb-7 pe-xxl-15" data-cue="slideInDown" data-group="page-title"
+                   data-delay="900" data-show="true"
+                   style="animation-name: slideInDown; animation-duration: 700ms; animation-timing-function: ease; animation-delay: 1200ms; animation-direction: normal; animation-fill-mode: both;">
+                    Our Self developed AI Job Finder will suggest <br class="d-none d-md-block d-lg-none"> the list of
+                    jobs suitable for you within fraction of seconds.</p>
+                <div class="d-inline-flex" data-cue="slideInDown" data-group="page-title" data-delay="900"
+                     data-show="true"
+                     style="animation-name: slideInDown; animation-duration: 700ms; animation-timing-function: ease; animation-delay: 1800ms; animation-direction: normal; animation-fill-mode: both;">
+                    <a href="{% url 'about' %}" class="btn btn-lg btn-outline-primary rounded-pill">Know More</a>
+                </div>
+            </div>
+            <!--/column -->
+            <div class="col-10 col-md-7 mx-auto col-lg-6 col-xl-5 ms-xl-5">
+                <img class="img-fluid mb-n12 mb-md-n14 mb-lg-n19" src="{% static 'front/img/illustrations/3d5.png' %}"
+                     srcset="{% static 'front/img/illustrations/3d5@2x.png' 2x %}" data-cue="fadeIn" data-delay="300"
+                     alt=""
+                     data-show="true"
+                     style="animation-name: fadeIn; animation-duration: 700ms; animation-timing-function: ease; animation-delay: 300ms; animation-direction: normal; animation-fill-mode: both;">
+            </div>
+            <!--/column -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+    <figure><img src="{% static 'front/img/photos/clouds.png' %}" alt=""></figure>
+</section>
+<section class="bg-light py-6">
+    <div class="container my-5">
+        <div class="row">
+            {% for jobs in allJobs %}
+            <div class="col-md-4 col-lg-4">
+                <article>
+                    <div class="card shadow-lg">
+                        <div class="card-body p-6">
+                            <div class="post-header">
+                                <div class="post-category">
+                                    <a href="#" class="hover" rel="category">{{jobs.company}}</a>
+                                </div>
+                                <h2 class="post-title h3 mt-1 mb-3">
+                                    <a class="link-dark" href="{% url 'jobsDetail' jobs.pk %}">{{jobs.title}}</a>
+                                </h2>
+                                <p>
+                                    <strong>Role:</strong> {{jobs.role}}<br>
+                                    <strong>Employment Type:</strong> {{jobs.empType}}
+                                </p>
+                            </div>
+                            <div class="post-footer">
+                                <ul class="post-meta d-flex mb-0">
+                                    <li class="post-date">
+                                        <i class="uil uil-calendar-alt"></i>
+                                        <span>{{jobs.createdDate|timesince}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends 'back/base.html' %}
+{% load static %}
+{% block meta %}
+        <title>Edit Frontend Website Settings - {{webSettingsUniversal.title}}</title>
+        <meta name="description" content="{{webSettingsUniversal.metaDescription}}"/>
+        <meta name="keywords" content="{{webSettingsUniversal.metaKeyword}}"/>
+        <meta property="og:locale" content="en_US"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Edit Frontend Website Settings -{{webSettingsUniversal.title}}"/>
+        <meta property="og:url" content="{{request.scheme}}://{{request.get_host}}{{request.get_full_path}}"/>
+        <meta property="og:site_name" content="{{webSettingsUniversal.title}} - {{webSettingsUniversal.slogan}}"/>
+        {% endblock %}
+{% block content %}
+<div class="d-flex flex-column flex-column-fluid">
+    <div class="app-content flex-column-fluid mt-10">
+        <div class="app-container container-xxl">
+            <div class="card">
+                <div class="card-header ribbon ribbon-end ribbon-clip">
+                    <div class="ribbon-label">
+                        Update
+                        <span class="ribbon-inner bg-warning"></span>
+                    </div>
+                    <div class="card-title fw-bold m-0">Website Settings</div>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="card mb-5 mb-xl-10">
+                        <div class="collapse show">
+                            <form action="{% url 'webSettingsEdit' webSetting.pk %}" method="post" class="form"
+                                  enctype="multipart/form-data" novalidate>
+                                {% csrf_token %}
+                                <div class="card-body border-top p-9">
+                                    {% if webSettingsForm.errors %}
+                                        {% for field in webSettingsForm %}
+                                            {% for error in field.errors %}
+                                            <div class="alert alert-danger">
+                                                <strong>{{field.name|title}} - {{error|escape}}</strong>
+                                            </div>
+                                            {% endfor %}
+                                        {% endfor %}
+                                        {% for error in webSettingsForm.non_field_errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{error|escape}}</strong>
+                                        </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{webSettingsForm.title}}
+                                                <label class="required">Title</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{webSettingsForm.slogan}}
+                                                <label class="required">Slogan</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating">
+                                                <span class="required">Logo Dark</span> {{webSettingsForm.logo}}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                <span class="required">Logo Light</span> {{webSettingsForm.logoLight}}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                <span class="required">Favicon</span> {{webSettingsForm.favicon}}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                <span class="required">User Default Icon</span> {{webSettingsForm.userIconDefault}}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{webSettingsForm.contactNumber}}
+                                                <label class="required">Contact Number</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{webSettingsForm.contactEmail}}
+                                                <label class="required">Contact Email</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{webSettingsForm.contactAddress}}
+                                                <label class="required">Contact Address</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row py-3">
+                                        <div class="col">
+                                            <p>Search Engine Optimisation</p>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{webSettingsForm.metaKeyword}}
+                                                <label class="required">Meta Keywords</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{webSettingsForm.metaDescription}}
+                                                <label class="required">Meta Description</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extraJS %}
+<!--begin::Custom Javascript(used for this page only)-->
+
+<!--end::Custom Javascript-->
+{% endblock %}

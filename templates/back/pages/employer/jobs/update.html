@@ -1,0 +1,94 @@
+{% extends 'back/base.html' %}
+{% load static %}
+{% block meta %}
+<title>Edit Job - {{webSettingsUniversal.title}}</title>
+<meta name="description" content="{{webSettingsUniversal.metaDescription}}"/>
+<meta name="keywords" content="{{webSettingsUniversal.metaKeyword}}"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Edit Job -{{webSettingsUniversal.title}}"/>
+<meta property="og:url" content="{{request.scheme}}://{{request.get_host}}{{request.get_full_path}}"/>
+<meta property="og:site_name" content="{{webSettingsUniversal.title}} - {{webSettingsUniversal.slogan}}"/>
+{% endblock %}
+{% block content %}
+<div class="d-flex flex-column flex-column-fluid">
+    <div class="app-content flex-column-fluid mt-10">
+        <div class="app-container container-xxl">
+            <div class="card">
+                <div class="card-header ribbon ribbon-end ribbon-clip">
+                    <div class="ribbon-label">
+                        Update
+                        <span class="ribbon-inner bg-warning"></span>
+                    </div>
+                    <div class="card-title fw-bold m-0">
+                        <span class="px-2">Submitted Job Details of {{singleJob.name}}</span>
+                    </div>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="card mb-5 mb-xl-10">
+                        <div class="collapse show">
+                            <form action="{% url 'jobEdit' singleJob.pk %}" method="post" class="form"
+                                  enctype="multipart/form-data" novalidate>
+                                {% csrf_token %}
+                                <div class="card-body border-top p-9">
+                                    {% if jobsForm.errors %}
+                                        {% for field in jobsForm %}
+                                            {% for error in field.errors %}
+                                            <div class="alert alert-danger">
+                                                <strong>{{field.name|title}} - {{error|escape}}</strong>
+                                            </div>
+                                            {% endfor %}
+                                        {% endfor %}
+                                        {% for error in jobsForm.non_field_errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{error|escape}}</strong>
+                                        </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-floating mb-7">
+                                                {{jobsForm.company}}
+                                                <label class="required">Company</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-floating mb-7">
+                                                {{jobsForm.title}}
+                                                <label class="required">Title</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-floating mb-7">
+                                                {{jobsForm.media}}
+                                                {{jobsForm.jd}}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-floating mb-7">
+                                                {{jobsForm.status}}
+                                                <label class="required">Status</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                    <a href="{% url 'jobList' %}" class="btn btn-light-info me-3">Discard</a>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extraJS %}
+<!--begin::Custom Javascript(used for this page only)-->
+<script>
+    $("#kt_datepicker_1").flatpickr();
+</script>
+<!--end::Custom Javascript-->
+{% endblock %}

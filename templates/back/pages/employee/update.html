@@ -1,0 +1,153 @@
+{% extends 'back/base.html' %}
+{% load static %}
+{% block meta %}
+<title>Edit {{empResumes.fullName}} - {{webSettingsUniversal.title}}</title>
+<meta name="description" content="{{webSettingsUniversal.metaDescription}}"/>
+<meta name="keywords" content="{{webSettingsUniversal.metaKeyword}}"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Edit {{empResumes.fullName}} -{{webSettingsUniversal.title}}"/>
+<meta property="og:url" content="{{request.scheme}}://{{request.get_host}}{{request.get_full_path}}"/>
+<meta property="og:site_name" content="{{webSettingsUniversal.title}} - {{webSettingsUniversal.slogan}}"/>
+{% endblock %}
+{% block content %}
+<div class="d-flex flex-column flex-column-fluid">
+    <div class="app-content flex-column-fluid mt-10">
+        <div class="app-container container-xxl">
+            <div class="card">
+                <div class="card-header ribbon ribbon-end ribbon-clip">
+                    <div class="ribbon-label">
+                        Update
+                        <span class="ribbon-inner bg-warning"></span>
+                    </div>
+                    <div class="card-title fw-bold m-0">
+                        <span class="px-2">Submitted CV Details of {{empResumes.fullName}}</span>
+                    </div>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="card mb-5 mb-xl-10">
+                        <div class="collapse show">
+                            <form action="{% url 'empCVEdit' empResumes.pk %}" method="post" class="form"
+                                  enctype="multipart/form-data" novalidate>
+                                {% csrf_token %}
+                                <div class="card-body border-top p-9">
+                                    {% if empResumesForm.errors %}
+                                        {% for field in empResumesForm %}
+                                            {% for error in field.errors %}
+                                            <div class="alert alert-danger">
+                                                <strong>{{field.name|title}} - {{error|escape}}</strong>
+                                            </div>
+                                            {% endfor %}
+                                        {% endfor %}
+                                        {% for error in empResumesForm.non_field_errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{error|escape}}</strong>
+                                        </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{empResumesForm.positionAppliedFor}}
+                                                <label class="required">Position AppliedFor</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{empResumesForm.fullName}}
+                                                <label class="required">Full Name</label>
+                                            </div>
+                                            </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{empResumesForm.totalExp}}
+                                                <label class="required">Total Experience</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{empResumesForm.currentCTC}}
+                                                <label class="required">Current CTC</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{empResumesForm.noticePeriod}}
+                                                <label class="required">Notice Period</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{empResumesForm.relocation}}
+                                                <label class="required">Relocation</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{empResumesForm.whatsapp}}
+                                                <label class="required">Whatsapp</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{empResumesForm.email}}
+                                                <label class="required">Email</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{empResumesForm.currentRole}}
+                                                <label class="required">Current Role</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{empResumesForm.changeReason}}
+                                                <label class="required">Change Reason</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{empResumesForm.currentOrganisation}}
+                                                <label class="required">Current Organisation</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{empResumesForm.academicQualification}}
+                                                <label class="required">Academic Qualification</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                {{empResumesForm.technicalCertification}}
+                                                <label class="required">Technical Certification</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7">
+                                                <span class="required">Upload CV: </span>{{empResumesForm.uploadCV}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                    <a href="{% url 'empCVList' %}" class="btn btn-light-info me-3">Discard</a>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extraJS %}
+<!--begin::Custom Javascript(used for this page only)-->
+<script>
+    $("#kt_datepicker_1").flatpickr();
+</script>
+<!--end::Custom Javascript-->
+{% endblock %}

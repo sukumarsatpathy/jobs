@@ -1,0 +1,110 @@
+{% extends 'back/base.html' %}
+{% load static %}
+{% block meta %}
+<title>Add Employee Profile - {{webSettingsUniversal.title}}</title>
+<meta name="description" content="{{webSettingsUniversal.metaDescription}}"/>
+<meta name="keywords" content="{{webSettingsUniversal.metaKeyword}}"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Add Employee Profile- {{webSettingsUniversal.title}}"/>
+<meta property="og:url" content="{{request.scheme}}://{{request.get_host}}{{request.get_full_path}}"/>
+<meta property="og:site_name" content="{{userAccount.full_name}} - {{webSettingsUniversal.title}}"/>
+{% endblock %}
+{% block content %}
+<div class="d-flex flex-column flex-column-fluid">
+    <div class="app-content flex-column-fluid mt-10">
+        <div class="app-container container-xxl">
+            <div class="card">
+                <div class="card-header ribbon ribbon-end ribbon-clip">
+                    <div class="ribbon-label">
+                        Create
+                        <span class="ribbon-inner bg-primary"></span>
+                    </div>
+                    <div class="card-title fw-bold m-0">Add Company Profile</div>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="card mb-5 mb-xl-10">
+                        <div class="collapse show">
+                            <form action="{% url 'companyCreate' %}" method="post" class="form"
+                                  enctype="multipart/form-data" novalidate>
+                                {% csrf_token %}
+                                <div class="card-body border-top p-9">
+                                    <div class="row">
+
+                                        <!-- Name field -->
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7 {% if compForm.name.errors %}has-error{% endif %}">
+                                                {{ compForm.name }}
+                                                <label for="{{ compForm.name.id_for_label }}"
+                                                       class="required">Name</label>
+                                                {% for error in compForm.name.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-floating mb-7 {% if compForm.contact.errors %}has-error{% endif %}">
+                                                {{ compForm.contact }}
+                                                <label for="{{ compForm.contact.id_for_label }}">Contact</label>
+                                                {% for error in compForm.contact.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-floating mb-7 {% if compForm.website.errors %}has-error{% endif %}">
+                                                {{ compForm.website }}
+                                                <label for="{{ compForm.website.id_for_label }}">Website</label>
+                                                {% for error in compForm.website.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-floating mb-7 {% if compForm.address.errors %}has-error{% endif %}">
+                                                {{ compForm.address }}
+                                                <label for="{{ compForm.address.id_for_label }}" class="required">Address</label>
+                                                {% for error in compForm.address.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="mb-7 {% if compForm.logo.errors %}has-error{% endif %}">
+                                                <label for="{{ compForm.logo.id_for_label }}">Logo</label>
+                                                {{ compForm.logo }}
+                                                {% for error in compForm.logo.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-floating mb-7 {% if compForm.status.errors %}has-error{% endif %}">
+                                                {{ compForm.status }}
+                                                <label for="{{ compForm.status.id_for_label }}"
+                                                       class="required">Status</label>
+                                                {% for error in compForm.status.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-7 {% if compForm.profile.errors %}has-error{% endif %}">
+                                                <label for="{{ compForm.profile.id_for_label }}">Profile</label>
+                                                {{ compForm.profile }}
+                                                {{ compForm.media }}
+                                                {% for error in compForm.profile.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                    <a href="{% url 'companyList' %}" class="btn btn-light-info me-3">Discard</a>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extraJS %}
+<!--begin::Custom Javascript(used for this page only)-->
+
+<!--end::Custom Javascript-->
+{% endblock %}

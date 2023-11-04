@@ -1,0 +1,220 @@
+{% extends 'front/base.html' %}
+{% load static %}
+{% block meta %}
+<title>{{singleJobDetail.title}} - {{webSettingsUniversal.title}}</title>
+<meta name="description" content="{{webSettingsUniversal.metaDescription}}">
+<meta name="keywords" content="{{webSettingsUniversal.metaKeyword}}">
+<meta name="author" content="Hardkode Technologies">
+<meta property="og:locale" content="en_US"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="{{webSettingsUniversal.title}} - {{webSettingsUniversal.slogan}}"/>
+<meta property="og:url" content="{{request.scheme}}://{{request.get_host}}{{request.get_full_path}}"/>
+<meta property="og:site_name" content="{{webSettingsUniversal.title}}"/>
+{% endblock %}
+{% block content %}
+<style>
+    .card {
+        border-radius:20px;
+    }
+</style>
+<section class="bg-gradient-primary py-6">
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-8 col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <h3>
+                                    <span>{{singleJobDetail.title}}</span><br>
+                                    <small class="fs-13">{{singleJobDetail.company}}</small>
+                                </h3>
+                                <div class="fs-13 pb-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-briefcase" viewBox="0 0 16 16">
+                                        <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"/>
+                                    </svg>
+                                    <span>{{singleJobDetail.experience}}</span> |
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                                        <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4v1.06Z"/>
+                                    </svg>
+                                    <span>{{singleJobDetail.salary}}</span>
+                                </div>
+                                <div class="fs-13 pb-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                    </svg>
+                                    <span>{{singleJobDetail.location}}</span>
+                                </div>
+                                <div class="fs-13">
+                                    <strong>Posted:</strong> {{singleJobDetail.createdDate|timesince}}
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="text-center">
+                                    <img src="{{singleJobDetail.company.logo.url}}" alt="{{singleJobDetail.company}}"
+                                         class="img-fluid"/>
+                                    <a href="#" class="btn btn-primary btn-sm rounded-pill"
+                                       data-bs-toggle="modal" data-bs-target="#modal-applyNow">Apply Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        {% include 'front/includes/alert.html' %}
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div class="pb-3">
+                            <p><strong>Job Description:</strong> {{singleJobDetail.jd|safe}}</p>
+                        </div>
+                        <div class="fs-18">
+                            <strong>Role:</strong> {{singleJobDetail.role}}<br>
+                            <strong>Industry Type:</strong> {{singleJobDetail.industry}}<br>
+                            <strong>Department:</strong> {{singleJobDetail.department}}<br>
+                            <strong>Employment Type:</strong> {{singleJobDetail.empType}}<br>
+                            <strong>Role Category:</strong> {{singleJobDetail.roleCategory}}<br>
+                            <strong>Education:</strong> {{singleJobDetail.education}}<br>
+                        </div>
+                        <div class="fs-18">
+                            <strong>Key Skills:</strong> {{singleJobDetail.keySkills}}
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div class="pb-3">
+                            <p><strong>Company Profile:</strong> {{singleJobDetail.company.profile|safe}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <p><strong>Beware of imposters!</strong> {{webSettingsUniversal.title}}.digital does not
+                            promise a job or an interview in exchange for money. Fraudsters may ask you to pay in the
+                            pretext of registration fee, Refundable Fee</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h6>Other Roles offered by {{singleJobDetail.company}}</h6>
+                        {% for jobs in otherJobs %}
+                        <p class="pb-2 fs-17">👉 <a href="{% url 'jobsDetail' jobs.pk %}">{{jobs.title}}</a></p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="modal-applyNow" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content text-center">
+            <div class="modal-body border-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h3>You are applying for <br> {{singleJobDetail.title}}</h3>
+                <form action="{% url 'jobsDetail' singleJobDetail.pk %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-body p-9">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-floating mb-7">
+                                    {{empResumesForm.fullName}}
+                                    <label class="required">Full Name</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-floating mb-7">
+                                    {{empResumesForm.totalExp}}
+                                    <label class="required">Total Experience</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-floating mb-7">
+                                    {{empResumesForm.currentCTC}}
+                                    <label class="required">Current CTC</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-floating mb-7">
+                                    {{empResumesForm.noticePeriod}}
+                                    <label class="required">Notice Period</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-floating mb-7">
+                                    {{empResumesForm.relocation}}
+                                    <label class="required">Relocation</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-floating mb-7">
+                                    {{empResumesForm.whatsapp}}
+                                    <label class="required">Whatsapp</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-floating mb-7">
+                                    {{empResumesForm.email}}
+                                    <label class="required">Email</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-floating mb-7">
+                                    {{empResumesForm.currentRole}}
+                                    <label class="required">Current Role</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-floating mb-7">
+                                    {{empResumesForm.changeReason}}
+                                    <label class="required">Change Reason</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-floating mb-7">
+                                    {{empResumesForm.currentOrganisation}}
+                                    <label class="required">Current Organisation</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-floating mb-7">
+                                    {{empResumesForm.academicQualification}}
+                                    <label class="required">Academic Qualification</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-floating mb-7">
+                                    {{empResumesForm.technicalCertification}}
+                                    <label class="required">Technical Certification</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-field">
+                                    <label class="required">Upload Your CV</label>
+                                    {{empResumesForm.uploadCV}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Apply Now</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var positionAppliedFor = {{singleJobDetail.title}}
+    document.getElementById('positionAppliedFor').value = positionAppliedFor;
+</script>
+{% endblock %}

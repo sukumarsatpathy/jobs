@@ -1,0 +1,170 @@
+{% extends 'back/base.html' %}
+{% load static %}
+{% block meta %}
+<title>Create Job - {{webSettingsUniversal.title}}</title>
+<meta name="description" content="{{webSettingsUniversal.metaDescription}}"/>
+<meta name="keywords" content="{{webSettingsUniversal.metaKeyword}}"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Create Job - {{webSettingsUniversal.title}}"/>
+<meta property="og:url" content="{{request.scheme}}://{{request.get_host}}{{request.get_full_path}}"/>
+<meta property="og:site_name" content="{{userAccount.full_name}} - {{webSettingsUniversal.title}}"/>
+{% endblock %}
+{% block content %}
+<div class="d-flex flex-column flex-column-fluid">
+    <div class="app-content flex-column-fluid mt-10">
+        <div class="app-container container-xxl">
+            <div class="card">
+                <div class="card-header ribbon ribbon-end ribbon-clip">
+                    <div class="ribbon-label">
+                        Create
+                        <span class="ribbon-inner bg-primary"></span>
+                    </div>
+                    <div class="card-title fw-bold m-0">Create Job</div>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="card mb-5 mb-xl-10">
+                        <div class="collapse show">
+                            <form action="{% url 'jobCreate' %}" method="post" class="form"
+                                  enctype="multipart/form-data" novalidate>
+                                {% csrf_token %}
+                                <div class="card-body border-top p-9">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7 {% if jobsForm.title.errors %}has-error{% endif %}">
+                                                {{ jobsForm.title }}
+                                                <label for="{{ jobsForm.title.id_for_label }}"
+                                                       class="required">Title</label>
+                                                {% for error in jobsForm.title.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-floating mb-7 {% if jobsForm.experience.errors %}has-error{% endif %}">
+                                                {{ jobsForm.experience }}
+                                                <label for="{{ jobsForm.experience.id_for_label }}" class="required">Experience</label>
+                                                {% for error in jobsForm.experience.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-floating mb-7 {% if jobsForm.salary.errors %}has-error{% endif %}">
+                                                {{ jobsForm.salary }}
+                                                <label for="{{ jobsForm.salary.id_for_label }}" class="required">Salary</label>
+                                                {% for error in jobsForm.salary.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-floating mb-7 {% if jobsForm.location.errors %}has-error{% endif %}">
+                                                {{ jobsForm.location }}
+                                                <label for="{{ jobsForm.location.id_for_label }}" class="required">Location</label>
+                                                {% for error in jobsForm.location.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-floating mb-7 {% if jobsForm.role.errors %}has-error{% endif %}">
+                                                {{ jobsForm.role }}
+                                                <label for="{{ jobsForm.location.id_for_label }}" class="required">Role</label>
+                                                {% for error in jobsForm.role.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-floating mb-7 {% if jobsForm.industry.errors %}has-error{% endif %}">
+                                                {{ jobsForm.industry }}
+                                                <label for="{{ jobsForm.location.id_for_label }}" class="required">Industry</label>
+                                                {% for error in jobsForm.industry.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-floating mb-7 {% if jobsForm.department.errors %}has-error{% endif %}">
+                                                {{ jobsForm.department }}
+                                                <label for="{{ jobsForm.location.id_for_label }}" class="required">Department</label>
+                                                {% for error in jobsForm.department.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7 {% if jobsForm.company.errors %}has-error{% endif %}">
+                                                {{ jobsForm.company }}
+                                                <label for="{{ jobsForm.company.id_for_label }}" class="required">Company</label>
+                                                {% for error in jobsForm.company.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="mb-7 {% if jobsForm.jd.errors %}has-error{% endif %}">
+                                                <label for="{{ jobsForm.jd.id_for_label }}">Job Description (JD)</label><br>
+                                                {{ jobsForm.jd }}
+                                                {{ jobsForm.media }}
+                                                {% for error in jobsForm.jd.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7 {% if jobsForm.roleCategory.errors %}has-error{% endif %}">
+                                                {{ jobsForm.roleCategory }}
+                                                <label for="{{ jobsForm.roleCategory.id_for_label }}" class="required">Role Category</label>
+                                                {% for error in jobsForm.roleCategory.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7 {% if jobsForm.empType.errors %}has-error{% endif %}">
+                                                {{ jobsForm.empType }}
+                                                <label for="{{ jobsForm.empType.id_for_label }}" class="required">Emp Type</label>
+                                                {% for error in jobsForm.empType.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7 {% if jobsForm.keySkills.errors %}has-error{% endif %}">
+                                                {{ jobsForm.keySkills }}
+                                                <label for="{{ jobsForm.keySkills.id_for_label }}" class="required">Key Skills</label>
+                                                {% for error in jobsForm.keySkills.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7 {% if jobsForm.education.errors %}has-error{% endif %}">
+                                                {{ jobsForm.education }}
+                                                <label for="{{ jobsForm.education.id_for_label }}" class="required">Education</label>
+                                                {% for error in jobsForm.education.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-7 {% if jobsForm.status.errors %}has-error{% endif %}">
+                                                {{ jobsForm.status }}
+                                                <label for="{{ jobsForm.status.id_for_label }}">Status</label>
+                                                {% for error in jobsForm.status.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                    <a href="{% url 'jobList' %}" class="btn btn-light-info me-3">Discard</a>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extraJS %}
+<!--begin::Custom Javascript(used for this page only)-->
+
+<!--end::Custom Javascript-->
+{% endblock %}

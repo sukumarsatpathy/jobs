@@ -1,0 +1,13 @@
+{% load static %}
+<div id="kt_app_footer" class="app-footer">
+    <div class="app-container container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3">
+        <div class="text-dark order-2 order-md-1">
+            <span class="text-muted fw-semibold me-1">2023&copy;</span>
+            <a href="{{request.scheme}}://{{request.get_host}}" target="_blank" class="text-gray-800 text-hover-primary">{{frontendSettingsUniversal.title}}</a>
+        </div>
+		<div class="text-dark order-2 order-md-1">
+            <span class="text-muted fw-semibold">Created with <img src="{% static 'back/media/heart.png' %}" width="12px" height="12px" /> by</span>
+            <a href="#" target="_blank" class="menu-link">The One Designs</a>
+        </div>
+    </div>
+</div>

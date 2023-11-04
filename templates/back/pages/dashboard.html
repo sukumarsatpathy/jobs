@@ -1,0 +1,128 @@
+{% extends 'back/base.html' %}
+{% load static %}
+{% block meta %}
+<title>Dashboard - {{webSettingsUniversal.title}}</title>
+<meta name="description" content="{{webSettingsUniversal.metaDescription}}"/>
+<meta name="keywords" content="{{webSettingsUniversal.metaKeyword}}"/>
+
+<meta property="og:locale" content="en_US"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Add Account - {{webSettingsUniversal.title}}"/>
+<meta property="og:url" content="{{request.scheme}}://{{request.get_host}}{{request.get_full_path}}"/>
+<meta property="og:site_name" content="{{userAccount.full_name}} - {{webSettingsUniversal.title}}"/>
+{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+<div class="d-flex flex-column flex-column-fluid">
+    <div class="container mt-5">
+        {% include 'back/includes/alert.html' %}
+    </div>
+    <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+        <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+                    Dashboard</h1>
+                <p class="text-muted text-hover-primary">Welcome {{user.full_name}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <div id="kt_app_content_container" class="app-container container-fluid">
+            <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                <!--begin::Col-->
+                <div class="col-xl-6">
+                    <div class="card card-flush h-xl-100">
+                        <div class="card-header pt-7">
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="card-label fw-bold text-gray-800">Recent Jobs</span>
+                            </h3>
+                            <div class="card-toolbar">
+                                <a href="{% url 'jobList' %}"
+                                   class="btn btn-sm btn-light">Job List</a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-row-dashed align-middle gs-0 gy-3 my-0">
+                                    <thead>
+                                    <tr class="fs-7 fw-bold text-gray-400 border-bottom-0">
+                                        <th class="p-0 pb-3 min-w-100px text-start">Company</th>
+                                        <th class="p-0 pb-3 min-w-100px text-center">Title</th>
+                                        <th class="p-0 pb-3 min-w-100px text-center">Experience</th>
+                                        <th class="p-0 pb-3 min-w-125px text-center">Salary</th>
+                                        <th class="p-0 pb-3 min-w-100px text-end">Published</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for jobs in allJobs %}
+                                    <tr>
+                                        <td class="text-start pe-0">
+                                            <div class="d-flex align-items-center">
+                                                <div class="symbol symbol- symbol-40px me-3">
+                                                    <img src="{{jobs.company.logo.url}}" alt="{{jobs.company}}">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-start pe-0">{{jobs.title}}</td>
+                                        <td class="text-start pe-0">{{jobs.experience}}</td>
+                                        <td class="text-start pe-0">{{jobs.salary}}</td>
+                                        <td class="text-end pe-0">{{jobs.createdDate|timesince}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="card card-flush h-xl-100">
+                        <div class="card-header pt-7">
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="card-label fw-bold text-gray-800">Latest CVs</span>
+                            </h3>
+                            <div class="card-toolbar">
+                                <a href="{% url 'empCVList' %}"
+                                   class="btn btn-sm btn-light">CV List</a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-row-dashed align-middle gs-0 gy-3 my-0">
+                                    <thead>
+                                    <tr class="fs-7 fw-bold text-gray-400 border-bottom-0">
+                                        <th class="p-0 pb-3 min-w-100px text-start">Name</th>
+                                        <th class="p-0 pb-3 min-w-100px text-center">Experience</th>
+                                        <th class="p-0 pb-3 min-w-100px text-center">Current CTC</th>
+                                        <th class="p-0 pb-3 min-w-125px text-center">noticePeriod</th>
+                                        <th class="p-0 pb-3 min-w-100px text-end">Submitted</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for cvs in allCVs %}
+                                    <tr>
+                                        <td class="text-start pe-0">{{cvs.fullName}}</td>
+                                        <td class="text-center pe-0">{{cvs.totalExp}}</td>
+                                        <td class="text-center pe-0">{{cvs.currentCTC}}</td>
+                                        <td class="text-center pe-0">{{cvs.noticePeriod}}</td>
+                                        <td class="text-end pe-0">{{cvs.createdDate|timesince}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+{% block extraJS %}
+<!--begin::Custom Javascript(used for this page only)-->
+<script src="{% static 'back/js/custom/utilities/modals/users-search.js' %}"></script>
+<!--end::Custom Javascript-->
+{% endblock %}
